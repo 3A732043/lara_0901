@@ -9,9 +9,9 @@ class AdminPostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at','DESC')->get();
-        $data=['posts'=>$posts];
-        return view('admin.posts.index',$data);
+        $posts = Post::orderBy('created_at', 'DESC')->get();
+        $data = ['posts' => $posts];
+        return view('admin.posts.index', $data);
     }
 
     public function create()
@@ -33,5 +33,12 @@ class AdminPostsController extends Controller
         ];
 
         return view('admin.posts.edit', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $post = Post::find($id);
+        $post->update($request->all());
+        return redirect()->route('admin.posts.index');
     }
 }
